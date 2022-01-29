@@ -1,0 +1,1111 @@
+namespace = ot_game_start
+
+### Change homeworld to Tombworld if have Nuked or Survivor Trait on Game Start
+### If Nuked, Change Planet Preference to Tomb World if Biological Pop
+country_event = {
+	id = ot_game_start.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			has_trait = ot_trait_nuked 
+			has_trait = ot_trait_survivor
+		}
+		
+	}
+
+	immediate = {
+		if = {
+			limit = { host_has_dlc = "Apocalypse" }
+			if = { 
+				limit = {
+					has_trait = ot_trait_nuked 
+					NOT = { has_trait = trait_machine_unit}
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						ideal_planet_class = pc_nuked
+						remove_trait = ot_trait_nuked
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			if = { 
+				limit = {
+					has_trait = ot_trait_nuked 
+					has_trait = trait_machine_unit
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_nuked
+						base = none # makes this replace parent species
+					}
+				}
+			}	
+			random_owned_planet ={
+				limit = { is_capital = yes NOT = { is_planet_class = pc_ringworld_habitable } }
+				change_pc = pc_nuked
+				clear_deposits = yes
+				add_deposit = d_tomb_world_ruins
+				add_deposit = d_tomb_world_wasteland
+				
+				# 3 + 3 energy		
+				add_deposit = d_hot_springs		
+				add_deposit = d_searing_desert
+				add_deposit = d_underwater_vent	
+				
+				# 3 + 4 mining
+				add_deposit = d_veiny_cliffs		
+				add_deposit = d_ore_rich_caverns
+				add_deposit = d_submerged_ore_veins
+				
+				# 3 + 2 farming
+				add_deposit = d_lichen_fields	
+				add_deposit = d_fungal_caves 	
+				add_deposit = d_fungal_forest
+			}
+		}
+		else = {
+			if = { 
+				limit = {
+					has_trait = ot_trait_nuked 
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_nuked
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			if = { 
+				limit = {
+					has_trait = ot_trait_survivor 
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_survivor
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+	}
+}
+
+### Change homeworld to Gaia World if have Life-Seeded trait or Gaia trait on Game Start
+country_event = {
+	id = ot_game_start.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			has_trait = ot_trait_life_seeded 
+			has_trait = ot_trait_gaia
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { host_has_dlc = "Apocalypse" }
+			if = { 
+				limit = {
+					has_trait = ot_trait_gaia 
+				}
+				every_owned_pop = {
+					limit = { is_same_species = owner_species }
+					modify_species = {
+						species = this
+						ideal_planet_class = pc_gaia
+						remove_trait = ot_trait_gaia
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			if = { 
+				limit = {
+					has_trait = ot_trait_life_seeded 
+				}
+				every_owned_pop = {
+					limit = { is_same_species = owner_species }
+					modify_species = {
+						species = this
+						ideal_planet_class = pc_gaia
+						remove_trait = ot_trait_life_seeded
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			random_owned_planet = {
+				limit = { is_capital = yes NOT = { is_planet_class = pc_ringworld_habitable } }
+				change_pc = pc_gaia
+				clear_deposits = yes
+				if = {
+					limit = {
+						root = { has_trait = ot_trait_life_seeded }
+					}
+					set_planet_size = 25
+					# 1 random medium deposit
+					random_list = {
+						33 = { add_deposit = d_frozen_gas_lake }
+						33 = { add_deposit = d_prosperous_mesa }
+						33 = { add_deposit = d_fertile_lands }
+					}
+				}
+				# 5 + 3 energy		
+				add_deposit = d_searing_desert			
+				add_deposit = d_underwater_vent
+				add_deposit = d_tempestous_mountain			
+				
+				# 5 + 3 mining
+				add_deposit = d_ore_rich_caverns 		
+				add_deposit = d_prosperous_mesa
+				add_deposit = d_submerged_ore_veins
+				
+				# 5 + 3 farming
+				add_deposit = d_lush_jungle	
+				add_deposit = d_teeming_reef		
+				add_deposit = d_black_soil	
+				
+				add_deposit = d_dust_caverns
+				add_deposit = d_bubbling_swamp
+				add_deposit = d_crystalline_caverns
+			}
+			# Nuke other colonies gained from advanced empire, etc
+			every_owned_planet = {
+				limit = { is_capital = no }
+				remove_all_buildings = yes
+				destroy_colony = yes
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		else = {
+			if = { 
+				limit = {
+					has_trait = ot_trait_gaia 
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_gaia
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			if = { 
+				limit = {
+					has_trait = ot_trait_life_seeded 
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_life_seeded
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+	}
+}
+
+### Change homeworld to Machine World if have Ai trait or Machine trait on Game Start
+country_event = {
+	id = ot_game_start.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			has_trait = ot_trait_ai 
+			has_trait = ot_trait_machine
+		}
+	}
+
+	immediate = {
+		if = { 
+			limit = {
+				has_trait = ot_trait_ai 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_ai
+					base = none # makes this replace parent species
+				}
+			}
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_machine 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_machine
+					base = none # makes this replace parent species
+				}
+			}
+		}
+		if = {
+			limit = { host_has_dlc = "Synthetic Dawn Story Pack"  }
+	
+			random_owned_planet = {
+				limit = { is_capital = yes NOT = { is_planet_class = pc_ringworld_habitable } }
+				change_pc = pc_machine
+				clear_deposits = yes
+				if = {
+					limit = {
+						root = { has_trait = ot_trait_ai }
+					}
+					set_planet_size = 25
+					add_deposit = d_machine_empire_ruins
+				}
+				add_deposit = d_strip_mine
+				add_deposit = d_machine_empire_ruins	
+			}
+			# Nuke other colonies gained from advanced empire, etc
+			every_owned_planet = {
+				limit = { is_capital = no }
+				remove_all_buildings = yes
+				destroy_colony = yes
+			}
+		}
+		change_dominant_species = { species = last_created change_all = yes }
+	}
+}
+
+### Change homeworld to Habitat if have Habitat trait on Game Start
+country_event = {
+	id = ot_game_start.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		#
+	}
+
+	immediate = {
+		#
+	}
+}
+
+### Change homeworld to Ringworld if have Ringworld trait on Game Start
+country_event = {
+	id = ot_game_start.7
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			has_trait = ot_trait_ringworld 
+		}
+	}
+
+	immediate = {
+		if = { 
+			limit = {
+				has_trait = ot_trait_ringworld 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					ideal_planet_class = pc_ringworld_habitable
+					remove_trait = ot_trait_ringworld
+					base = none # makes this replace parent species
+				}
+			}
+		}
+		if = {
+			limit = { always = yes }
+	
+			random_owned_planet = {
+				limit = { is_capital = yes NOT = { is_planet_class = pc_ringworld_habitable } }
+				change_pc = pc_ringworld_habitable
+				#3clear_deposits = yes
+			}
+			# Nuke other colonies gained from advanced empire, etc
+			every_owned_planet = {
+				limit = { is_capital = no }
+				remove_all_buildings = yes
+				destroy_colony = yes
+			}
+		}
+		change_dominant_species = { species = last_created change_all = yes }
+	}
+}
+
+### Change species to Synthetics
+country_event = {
+	id = ot_game_start.5
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			#has_trait = ot_trait_robot_awoken 
+			has_trait = ot_trait_synthetic
+		}
+		
+	}
+
+	immediate = {
+		if = {
+			limit = { host_has_dlc = "Utopia" }
+		
+			set_country_flag = synthetic_empire
+		
+			give_technology = { tech = tech_bio_reactor message = no }
+			
+			create_species = {
+				is_mod = yes
+				name = this
+				namelist = this
+				plural = this
+				class = "ROBOT"
+				portrait = "default_robot"
+				traits = {
+					trait = "trait_mechanical"
+				}
+				
+				effect = {
+					if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
+						prev = {
+							switch = {
+								trigger = is_species_class
+								HUM = { prev = { change_species_characteristics = { portrait = "sd_hum_robot" } } }
+								MAM = { prev = { change_species_characteristics = { portrait = "sd_mam_robot" } } }
+								REP = { prev = { change_species_characteristics = { portrait = "sd_rep_robot" } } }
+								AVI = { prev = { change_species_characteristics = { portrait = "sd_avi_robot" } } }
+								ART = { prev = { change_species_characteristics = { portrait = "sd_art_robot" } } }
+								MOL = { prev = { change_species_characteristics = { portrait = "sd_mol_robot" } } }
+								FUN = { prev = { change_species_characteristics = { portrait = "sd_fun_robot" } } }
+								PLANT = { prev = { change_species_characteristics = { portrait = "sd_pla_robot" } } }
+							}
+						}
+					}
+
+					rename_species = {
+						prompt_country = prev #If targeted country is a player they will get a popup asking for a name/plural/adjective combo. Otherwise the species will get a random name from the specified name_list
+						name_list = ascension_list
+					}
+					
+					save_event_target_as = new_robotic_species
+				}
+			}
+			
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				change_species = event_target:new_robotic_species
+			}
+
+			every_owned_ship = {
+				limit = {
+					is_ship_class = shipclass_colonizer
+				}
+				change_species = event_target:new_robotic_species
+			}
+
+			every_owned_army = {
+				limit = {
+					exists = species
+					exists = planet
+					army_type = assault_army
+				}
+				modify_army = {
+					name = random
+					type = "robotic_army"
+					species = event_target:new_robotic_species
+				}
+			}
+
+			every_owned_army = {
+				limit = {
+					exists = species
+					exists = planet
+					army_type = defense_army
+				}
+				modify_army = {
+					name = random
+					type = "robotic_defense_army"
+					species = event_target:new_robotic_species
+				}
+			}
+			
+			every_owned_leader = {
+				change_species = event_target:new_robotic_species
+				change_leader_portrait = species
+			}
+			every_pool_leader = {
+				change_species = event_target:new_robotic_species
+				change_leader_portrait = species
+			}
+			
+			change_dominant_species = { species = event_target:new_robotic_species }
+	
+	# Awoken Trait is gone
+	#		if = {
+	#			limit = {
+	#				event_target:modified_species = { has_trait = ot_trait_robot_awoken }
+	#			}
+	#			every_owned_pop = {
+	#				limit = { is_same_species = event_target:modified_species }
+	#				modify_species = {
+	#					species = this
+	#					add_trait = trait_robot_awoken
+	#					base = none # makes this replace parent species
+	#				}
+	#			}
+	#			change_dominant_species = { species = last_created change_all = yes }
+	#		}
+			set_country_flag = synthetic_age
+			
+			
+			random_owned_planet = {
+				limit = { is_capital = yes NOT = { is_planet_class = pc_ringworld_habitable } }
+				remove_district = district_farming
+				remove_district = district_farming
+				
+				add_district = district_generator
+				add_district = district_generator
+				add_district = district_generator
+				add_district = district_generator
+				
+				add_building = building_machine_assembly_plant
+				while = {
+					limit = { num_pops < 27 }
+					create_pop = {
+						species = event_target:new_robotic_species
+						ethos = random
+					}
+				}
+			}
+			
+			
+			# Nuke other colonies gained from advanced empire, etc
+			every_owned_planet = {
+				limit = { is_capital = no }
+				remove_all_buildings = yes
+				destroy_colony = yes
+			}
+		}
+		else = {
+	#		if = { 
+	#			limit = {
+	#				has_trait = ot_trait_robot_awoken 
+	#			}
+	#			every_owned_pop = {
+	#				modify_species = {
+	#					species = this
+	#					remove_trait = ot_trait_robot_awoken
+	#					base = none # makes this replace parent species
+	#				}
+	#			}
+	#		}
+			if = { 
+				limit = {
+					has_trait = ot_trait_synthetic 
+				}
+				every_owned_pop = {
+					modify_species = {
+						species = this
+						remove_trait = ot_trait_synthetic
+						base = none # makes this replace parent species
+					}
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+	}
+}
+
+### Change Origin Traits to be Vanilla Traits at Game Start for event meshing
+country_event = {
+	id = ot_game_start.6
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { 
+		OR = { 
+			has_trait = ot_trait_cybernetic 
+			has_trait = ot_trait_latent_psionic
+			has_trait = ot_trait_psionic
+			has_trait = ot_trait_erudite
+			has_trait = ot_trait_brainslug
+			has_trait = ot_trait_nivlac
+		}
+	}
+
+	immediate = {
+		if = { 
+			limit = {
+				has_trait = ot_trait_cybernetic 
+				NOT = { host_has_dlc = "Utopia" }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_cybernetic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_latent_psionic 
+				NOT = { host_has_dlc = "Utopia" }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_latent_psionic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_psionic 
+				NOT = { host_has_dlc = "Utopia" }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_psionic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_erudite 
+				NOT = { host_has_dlc = "Utopia" }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_erudite
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_brainslug 
+				NOT = { host_has_dlc = "Distant Stars Story Pack" }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_brainslug
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_cybernetic 
+				host_has_dlc = "Utopia" 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_cybernetic
+					add_trait = trait_cybernetic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+			every_owned_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_cyborg
+						has_trait =	leader_trait_general_cyborg
+						has_trait =	leader_trait_governor_cyborg
+						has_trait =	leader_trait_scientist_cyborg
+						has_trait =	leader_trait_ruler_cyborg
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+			}
+			every_pool_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_cyborg
+						has_trait =	leader_trait_general_cyborg
+						has_trait =	leader_trait_governor_cyborg
+						has_trait =	leader_trait_scientist_cyborg
+						has_trait =	leader_trait_ruler_cyborg
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_cyborg
+					add_ruler_trait = leader_trait_ruler_cyborg
+				}
+			}
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_latent_psionic 
+				host_has_dlc = "Utopia" 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_latent_psionic
+					add_trait = trait_latent_psionic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+			every_owned_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_psionic
+						has_trait =	leader_trait_general_psionic
+						has_trait =	leader_trait_governor_psionic
+						has_trait =	leader_trait_scientist_psionic
+						has_trait =	leader_trait_ruler_psionic
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+			}
+			every_pool_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait = leader_trait_admiral_psionic
+						has_trait = leader_trait_general_psionic
+						has_trait = leader_trait_governor_psionic
+						has_trait = leader_trait_scientist_psionic
+						has_trait = leader_trait_ruler_psionic
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+			}
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_psionic 
+				host_has_dlc = "Utopia" 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_psionic
+					add_trait = trait_psionic
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+			every_owned_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_psionic
+						has_trait =	leader_trait_general_psionic
+						has_trait =	leader_trait_governor_psionic
+						has_trait =	leader_trait_scientist_psionic
+						has_trait =	leader_trait_ruler_psionic
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+			}
+			every_pool_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait = leader_trait_admiral_psionic
+						has_trait = leader_trait_general_psionic
+						has_trait = leader_trait_governor_psionic
+						has_trait = leader_trait_scientist_psionic
+						has_trait = leader_trait_ruler_psionic
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_psionic
+					add_ruler_trait = leader_trait_ruler_psionic
+				}
+			}			
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_erudite 
+				host_has_dlc = "Utopia" 
+			}
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_erudite
+					add_trait = trait_erudite
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+			every_owned_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_erudite
+						has_trait =	leader_trait_general_erudite
+						has_trait =	leader_trait_governor_erudite
+						has_trait =	leader_trait_scientist_erudite
+						has_trait =	leader_trait_ruler_erudite
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+			}
+			every_pool_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_erudite
+						has_trait =	leader_trait_general_erudite
+						has_trait =	leader_trait_governor_erudite
+						has_trait =	leader_trait_scientist_erudite
+						has_trait =	leader_trait_ruler_erudite
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_erudite
+					add_ruler_trait = leader_trait_ruler_erudite
+				}
+			}
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_brainslug 
+				host_has_dlc = "Distant Stars Story Pack" 
+			}
+			set_country_flag = finished_brainslug_chain
+			every_owned_pop = {
+				limit = { is_same_species = owner_species }
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_brainslug
+					add_trait = trait_brainslug
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+			every_owned_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_brainslug
+						has_trait =	leader_trait_general_brainslug
+						has_trait =	leader_trait_governor_brainslug
+						has_trait =	leader_trait_scientist_brainslug
+						has_trait =	leader_trait_ruler_brainslug
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+			}
+			every_pool_leader = {
+				limit = {
+					is_same_species = owner_species
+
+					NOR = {
+						has_trait =	leader_trait_admiral_brainslug
+						has_trait =	leader_trait_general_brainslug
+						has_trait =	leader_trait_governor_brainslug
+						has_trait =	leader_trait_scientist_brainslug
+						has_trait =	leader_trait_ruler_brainslug
+					}
+				}
+				if = {
+					limit = { leader_class = admiral }
+					add_trait = leader_trait_admiral_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = general }
+					add_trait = leader_trait_general_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = governor }
+					add_trait = leader_trait_governor_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = scientist }
+					add_trait = leader_trait_scientist_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+				if = {
+					limit = { leader_class = ruler }
+					add_trait = leader_trait_ruler_brainslug
+					add_ruler_trait = leader_trait_ruler_brainslug
+				}
+			}
+		}
+		
+		if = { 
+			limit = {
+				has_trait = ot_trait_nivlac 
+				NOT = { host_has_dlc = "Distant Stars Story Pack"  }
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_nivlac
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+		if = { 
+			limit = {
+				has_trait = ot_trait_nivlac 
+				host_has_dlc = "Distant Stars Story Pack" 
+			}
+			every_owned_pop = {
+				modify_species = {
+					species = this
+					remove_trait = ot_trait_nivlac
+					add_trait = trait_nivlac
+					base = none # makes this replace parent species
+				}
+			}
+			change_dominant_species = { species = last_created change_all = yes }
+		}
+	}
+}

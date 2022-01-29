@@ -1,0 +1,697 @@
+#Origin Traits
+#Habitability Traits (replaces habitability/changes start planet)
+ot_trait_nuked = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	cost = 0
+	allowed_archetypes = { BIOLOGICAL MACHINE }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_survivor" "ot_trait_gaia" "ot_trait_life_seeded" "ot_trait_habitat" "ot_trait_ringworld" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_gaia = {
+	icon = "gfx/interface/icons/traits/trait_pc_gaia_preference.dds"
+	cost = 0
+	allowed_archetypes = { BIOLOGICAL }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_nuked" "ot_trait_survivor" "ot_trait_life_seeded" "ot_trait_habitat" "ot_trait_ringworld" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#ot_trait_habitat = {
+#	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+#	cost = 0
+#	allowed_archetypes = { BIOLOGICAL }
+#	
+#	initial = yes
+#	modification = no
+#	randomized = no
+#	
+#	opposites = { "ot_trait_nuked" "ot_trait_gaia" "ot_trait_life_seeded" "ot_trait_survivor" "ot_trait_ringworld" }
+#	
+#	modifier = {
+#		#gets replaced by game start event
+#	}
+#	
+#	ai_weight = {
+#		weight = 0
+#	}
+#}
+
+ot_trait_ringworld = {
+	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+	cost = 0
+	allowed_archetypes = { BIOLOGICAL }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_nuked" "ot_trait_survivor" "ot_trait_gaia" "ot_trait_life_seeded" "ot_trait_habitat" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_ai = {
+	icon = "gfx/interface/icons/traits/trait_pc_ai_preference.dds"
+	cost = 1
+	allowed_archetypes = { MACHINE }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_nuked" "ot_trait_machine" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_machine = {
+	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+	cost = 0
+	allowed_archetypes = { MACHINE }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_ai" "ot_trait_nuked" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#Unlocked Civic Traits
+ot_trait_survivor = {
+	icon = "gfx/interface/icons/traits/trait_survivor.dds"
+	cost = 2
+	allowed_archetypes = { BIOLOGICAL }
+	
+	initial = yes
+	randomized = no
+	modification = yes
+	advanced_trait = yes
+	
+	opposites = { "ot_trait_nuked" "ot_trait_gaia" "ot_trait_life_seeded" "ot_trait_habitat" "trait_survivor" "ot_trait_presapient_irradiated" "trait_presapient_irradiated" "trait_machine_unit" }
+
+	modifier = {
+		pc_nuked_habitability = 0.7
+		leader_age = 10
+	}
+}
+
+ot_trait_life_seeded = {
+	icon = "gfx/interface/icons/traits/trait_pc_gaia_preference.dds"
+	cost = 1
+	allowed_archetypes = { BIOLOGICAL }
+	
+	initial = yes
+	modification = no
+	randomized = no
+	
+	opposites = { "ot_trait_nuked" "ot_trait_gaia" "ot_trait_survivor" "ot_trait_habitat" }
+	
+	modifier = {
+		#gets replaced by game start event
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#Unlocked Presapient Traits
+ot_trait_presapient_starborn = {
+	cost = 3
+	opposites = { 
+		"ot_trait_presapient_earthbound" 
+		"ot_trait_presapient_natural_intellectuals"
+		"ot_trait_presapient_proles"
+		"ot_trait_presapient_conservative"
+		"ot_trait_syncretic_proles"
+		"ot_trait_presapient_irradiated"
+		"trait_sedentary" 
+		"trait_machine_unit"
+	}
+	modification = yes
+	randomized = no
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_growth_from_immigration = 0.25
+		pop_resettlement_cost_mult = -0.25
+		pop_environment_tolerance = 0.1
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_presapient_earthbound = {
+	cost = 2
+	opposites = { 
+		"ot_trait_presapient_starborn"
+		"ot_trait_presapient_natural_intellectuals"
+		"ot_trait_presapient_proles"
+		"ot_trait_presapient_conservative"
+		"ot_trait_syncretic_proles"
+		"ot_trait_presapient_irradiated"
+		"trait_nomadic" 
+	}
+	modification = yes
+	randomized = no
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		planet_jobs_energy_produces_mult = 0.1
+		army_defense_damage_mult = 0.5
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_presapient_natural_intellectuals = {
+	cost = 2
+	opposites = { 
+		"ot_trait_presapient_proles"
+		"ot_trait_presapient_starborn"
+		"ot_trait_presapient_earthbound" 
+		"ot_trait_presapient_conservative"
+		"ot_trait_syncretic_proles"
+		"ot_trait_presapient_irradiated"
+		"ot_trait_nerve_stapled"
+		"trait_nerve_stapled"
+		"trait_strong"
+		"trait_very_strong"
+	}
+	modification = yes
+	randomized = no
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		planet_jobs_unity_produces_mult = 0.05
+		planet_jobs_physics_research_produces_mult = 0.1
+		planet_jobs_engineering_research_produces_mult = 0.1
+		planet_jobs_society_research_produces_mult = 0.1
+		planet_jobs_minerals_produces_mult = -0.1
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_presapient_proles = {
+	cost = 2
+	opposites = { 
+		"trait_intelligent"
+		"trait_erudite"
+		"trait_natural_engineers"
+		"trait_natural_physicists"
+		"trait_natural_sociologists"
+		"trait_weak"
+		"ot_trait_presapient_natural_intellectuals" 
+		"ot_trait_presapient_starborn"
+		"ot_trait_presapient_earthbound" 
+		"ot_trait_presapient_conservative"
+		"ot_trait_syncretic_proles"
+		"ot_trait_presapient_irradiated"
+	}
+	modification = yes
+	randomized = no
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		army_damage_mult = 0.10
+		planet_jobs_minerals_produces_mult = 0.10
+		planet_jobs_food_produces_mult = 0.10
+		planet_jobs_physics_research_produces_mult = -0.15
+		planet_jobs_engineering_research_produces_mult = -0.15
+		planet_jobs_society_research_produces_mult = -0.15
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_presapient_conservative = {
+	cost = 2
+	opposites = { 
+		"trait_deviants"
+		"trait_solitary"
+		"trait_quick_learners"
+		"ot_trait_presapient_natural_intellectuals" 
+		"ot_trait_presapient_starborn"
+		"ot_trait_presapient_earthbound" 
+		"ot_trait_presapient_proles"
+		"ot_trait_syncretic_proles"
+		"ot_trait_presapient_irradiated"
+		"trait_hive_mind"
+		"trait_machine_unit"
+	}
+	modification = yes
+	randomized = no
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_happiness = 0.05
+		pop_government_ethic_attraction = 0.25
+		species_leader_exp_gain = -0.33
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_syncretic_proles = {
+	cost = 1
+	opposites = { 
+		"trait_intelligent"
+		"trait_erudite"
+		"trait_natural_engineers"
+		"trait_natural_physicists"
+		"trait_natural_sociologists"
+		"ot_trait_presapient_natural_intellectuals" 
+		"ot_trait_presapient_starborn"
+		"ot_trait_presapient_earthbound" 
+		"ot_trait_presapient_proles"
+		"ot_trait_presapient_conservative"
+		"ot_trait_presapient_irradiated"
+		"trait_hive_mind"
+		"trait_machine_unit"
+	}
+	modification = no
+	randomized = no
+	advanced_trait = no
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_happiness = 0.10
+		planet_jobs_produces_mult = 0.10
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_presapient_irradiated = {
+	cost = 2
+	opposites = { "trait_survivor" "ot_trait_survivor" "trait_presapient_irradiated" "trait_machine_unit" }
+	initial = yes
+	modification = yes
+	advanced_trait = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pc_nuked_habitability = 1
+		leader_age = 30
+	}
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+ot_trait_uplifted = {
+	cost = 1
+	opposites = { "trait_hive_mind" "trait_machine_unit" }
+	modification = no
+	randomized = no
+	icon = "gfx/interface/icons/traits/trait_uplifted.dds"
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_happiness = 0.05
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#Unlocked Event Traits
+#ot_trait_robot_awoken = {
+#	cost = 7
+#	icon = "gfx/interface/icons/traits/trait_robot_awoken.dds"
+#	
+#	allowed_archetypes = { BIOLOGICAL }
+#	
+#	initial = yes
+#	randomized = no
+#	modification = no
+#	
+#	opposites = { "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_latent_psionic" "ot_trait_psionic" "ot_trait_self_modified" "ot_trait_delicious" "ot_trait_nerve_stapled" "trait_nerve_stapled" }
+#		
+#	modifier = {
+#		tile_resource_society_research_mult = 0.30
+#		tile_resource_physics_research_mult = 0.30
+#		tile_resource_engineering_research_mult = 0.30
+#		pop_consumer_goods_mult = 0.25
+#		pop_resettlement_cost_mult = 0.5
+#	}
+#}
+
+ot_trait_brainslug = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	initial = yes
+	randomized = no
+	modification = no
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	opposites = { "ot_trait_self_modified" "ot_trait_nerve_stapled" "trait_nerve_stapled" }
+
+	modifier = {
+		planet_jobs_engineering_research_produces_mult = 0.10
+		planet_jobs_physics_research_produces_mult = 0.10
+		planet_jobs_society_research_produces_mult = 0.10
+		planet_jobs_unity_produces_mult = 0.10
+		pop_growth_speed = -0.25
+	}
+}
+
+ot_trait_nivlac = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_resilient.dds"
+	initial = yes
+	randomized = no
+	modification = no
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	opposites = { "ot_trait_fertile" "trait_fertile" "ot_trait_robust" "trait_robust" "trait_resilient"}
+
+	modifier = {
+		pop_environment_tolerance = 0.50
+		pop_growth_speed = 0.15
+	}
+}
+
+#Unlocked Advanced Traits
+ot_trait_cybernetic = {
+	cost = 3
+	icon = "gfx/interface/icons/traits/trait_cybernetic.dds"
+	
+	improves_leaders = yes
+	initial = yes
+	randomized = no
+	modification = no
+	
+	opposites = { "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_synthetic" "ot_trait_latent_psionic" "ot_trait_psionic" "ot_trait_self_modified" "ot_trait_delicious" "ot_trait_nerve_stapled" "trait_nerve_stapled"}
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		pop_environment_tolerance = 0.20
+		army_damage_mult = 0.1
+		leader_age = 40
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_synthetic = {
+	cost = 6
+	icon = "gfx/interface/icons/traits/trait_machine_unit.dds"
+	
+	improves_leaders = yes
+	initial = yes
+	randomized = no
+	modification = no
+	
+	opposites = { "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_cybernetic" "ot_trait_latent_psionic" "ot_trait_psionic" "ot_trait_self_modified" "ot_trait_delicious" "ot_trait_nerve_stapled" "trait_nerve_stapled"}
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		#turns pops into synths
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_latent_psionic = {
+	cost = 3
+	icon = "gfx/interface/icons/traits/trait_psionic_species.dds"
+	
+	initial = yes
+	randomized = no
+	modification = no
+	
+	opposites = { "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_cybernetic" "ot_trait_synthetic" "ot_trait_psionic" "ot_trait_self_modified" "ot_trait_delicious" "ot_trait_nerve_stapled" "trait_nerve_stapled"}
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		planet_jobs_engineering_research_produces_mult = 0.05
+		planet_jobs_physics_research_produces_mult = 0.05
+		planet_jobs_society_research_produces_mult = 0.05
+		planet_jobs_energy_produces_mult = 0.05
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_psionic = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/trait_psionic_species.dds"
+
+	improves_leaders = yes
+	initial = yes
+	randomized = no
+	modification = no
+	
+	opposites = { "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_cybernetic" "ot_trait_synthetic" "ot_trait_latent_psionic" "ot_trait_self_modified" "ot_trait_delicious" "ot_trait_nerve_stapled" "trait_nerve_stapled" }
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		planet_jobs_engineering_research_produces_mult = 0.10
+		planet_jobs_physics_research_produces_mult = 0.10
+		planet_jobs_society_research_produces_mult = 0.10
+		planet_jobs_energy_produces_mult = 0.10
+		pop_happiness = 0.05
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_self_modified = {
+	cost = 0
+	icon = "gfx/interface/icons/traits/trait_cybernetic.dds"
+
+	initial = yes
+	randomized = no
+	modification = no
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_delicious = {
+	cost = 2
+	icon = "gfx/interface/icons/traits/trait_delicious.dds"
+	opposites = { "trait_delicious" }
+	initial = yes
+	modification = no
+	randomized = no
+	advanced_trait = no
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		planet_livestock_food_produces_add = 2
+	}
+}
+
+ot_trait_nerve_stapled = {
+	cost = 3
+	icon = "gfx/interface/icons/traits/trait_nerve_stapled.dds"
+	opposites = { "trait_intelligent" "trait_erudite" "trait_natural_engineers" "trait_natural_physicists" "trait_natural_sociologists" "trait_communal" "trait_solitary" "trait_talented" "ot_trait_erudite" "trait_hive_mind" "trait_latent_psionic" "trait_psionic" "trait_cybernetic" "ot_trait_cybernetic" "ot_trait_synthetic" "ot_trait_latent_psionic" "ot_trait_self_modified" }
+	initial = yes
+	randomized = no
+	modification = no
+	advanced_trait = no
+	forced_happiness = yes
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		planet_jobs_produces_mult = 0.05
+		leader_skill_levels = -2
+	}
+	custom_tooltip = TRAIT_NERVE_STAPLED_EFFECT
+}
+
+ot_trait_fertile = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/trait_fertile.dds"
+	initial = yes
+	randomized = no
+	modification = no
+	advanced_trait = no
+	opposites = { "trait_slow_breeders" "trait_rapid_breeders" "trait_fertile" }
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_growth_speed = 0.3
+		pop_housing_usage_mult = -0.1
+	}
+}
+
+ot_trait_robust = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/trait_robust.dds"
+	initial = yes
+	randomized = no
+	modification = no
+	advanced_trait = no
+	opposites = { "trait_nonadaptive" "trait_adaptive" "trait_extremely_adaptive" "trait_robust" }
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		pop_environment_tolerance = 0.30
+		planet_jobs_produces_mult = 0.05
+		leader_age = 50
+	}
+}
+
+ot_trait_erudite = {
+	cost = 4
+	icon = "gfx/interface/icons/traits/trait_erudite.dds"
+	initial = yes
+	randomized = no
+	improves_leaders = yes
+	advanced_trait = no
+	modification = no
+	opposites = { "trait_nerve_stapled" "trait_intelligent" "ot_trait_nerve_stapled" "ot_trait_presapient_proles" "ot_trait_syncretic_proles" "trait_syncretic_proles" "trait_erudite" }
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		planet_researchers_produces_mult = 0.2
+		leader_skill_levels = 1
+	}
+}
+
+ot_trait_bioadaptability = { #green
+	cost = 3
+	potential_crossbreeding_chance = 0.33
+	icon = "gfx/interface/icons/traits/trait_bioadaptability.dds"
+	
+	initial = yes
+	modification = no
+	randomized = no
+	opposites = { "ot_trait_social_pheromones" "ot_trait_limited_regeneration" }
+	
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+	slave_cost = {
+		energy = 25
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_social_pheromones = { #red
+	cost = 3
+	potential_crossbreeding_chance = 0.33
+	icon = "gfx/interface/icons/traits/trait_social_pheromones.dds"
+	
+	initial = yes
+	modification = no
+	randomized = no
+	opposites = { "ot_trait_bioadaptability" "ot_trait_limited_regeneration" }
+	
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		pop_housing_usage_mult = -0.05
+	}
+	slave_cost = {
+		energy = 25
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+ot_trait_limited_regeneration = { #blue
+	cost = 3
+	potential_crossbreeding_chance = 0.33
+	icon = "gfx/interface/icons/traits/trait_limited_regeneration.dds"
+	
+	initial = yes
+	modification = no
+	randomized = no
+	opposites = { "ot_trait_bioadaptability" "ot_trait_social_pheromones" }
+
+	allowed_archetypes = { BIOLOGICAL }
+	
+	modifier = {
+		army_damage_mult = 0.1
+		leader_age = 10
+	}
+	slave_cost = {
+		energy = 25
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
