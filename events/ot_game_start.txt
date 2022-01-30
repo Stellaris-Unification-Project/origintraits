@@ -93,7 +93,7 @@ country_event = {
 					}
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 	}
 }
@@ -183,7 +183,7 @@ country_event = {
 				remove_all_buildings = yes
 				destroy_colony = yes
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		else = {
 			if = { 
@@ -210,7 +210,7 @@ country_event = {
 					}
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 	}
 }
@@ -279,7 +279,7 @@ country_event = {
 				destroy_colony = yes
 			}
 		}
-		change_dominant_species = { species = last_created change_all = yes }
+		change_dominant_species = { species = last_created_species change_all = yes }
 	}
 }
 
@@ -340,7 +340,7 @@ country_event = {
 				destroy_colony = yes
 			}
 		}
-		change_dominant_species = { species = last_created change_all = yes }
+		change_dominant_species = { species = last_created_species change_all = yes }
 	}
 }
 
@@ -465,7 +465,7 @@ country_event = {
 	#					base = none # makes this replace parent species
 	#				}
 	#			}
-	#			change_dominant_species = { species = last_created change_all = yes }
+	#			change_dominant_species = { species = last_created_species change_all = yes }
 	#		}
 			set_country_flag = synthetic_age
 			
@@ -523,7 +523,7 @@ country_event = {
 					}
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 	}
 }
@@ -558,7 +558,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -572,7 +572,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -586,7 +586,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -600,7 +600,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -614,7 +614,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -630,7 +630,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 			every_owned_leader = {
 				limit = {
 					is_same_species = owner_species
@@ -722,7 +722,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 			every_owned_leader = {
 				limit = {
 					is_same_species = owner_species
@@ -814,7 +814,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 			every_owned_leader = {
 				limit = {
 					is_same_species = owner_species
@@ -906,7 +906,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 			every_owned_leader = {
 				limit = {
 					is_same_species = owner_species
@@ -999,7 +999,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 			every_owned_leader = {
 				limit = {
 					is_same_species = owner_species
@@ -1090,7 +1090,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 		if = { 
 			limit = {
@@ -1105,7 +1105,7 @@ country_event = {
 					base = none # makes this replace parent species
 				}
 			}
-			change_dominant_species = { species = last_created change_all = yes }
+			change_dominant_species = { species = last_created_species change_all = yes }
 		}
 	}
 }
